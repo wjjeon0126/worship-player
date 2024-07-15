@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>worship-list</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dongle&family=Gaegu&display=swap" rel="stylesheet">
+</head>
+<body>
+    <style>
+        a {
+            color: #000; text-decoration: none; outline: none
+        }
+        .img_container{
+            position: relative;
+        }
+        .img_background{
+            width: 100%;
+            height: 100%;
+            position: static;
+        }
+        .img_whole{
+            margin-bottom: 40px;
+        }
+        
+        .img_title{
+                position: absolute;
+                font-size: 6.5vw;
+                left: 39%;
+                top: 49.5%;
+                font-family: "Dongle", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+            }
+            .img_list{
+                position: absolute;
+                font-size: 5vw;
+                line-height: 4vw;
+                left: 25%;
+                top: 59%;
+                font-family: "Dongle", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+            }
+    </style>
+    <div class="img_container">
+        <h1 class="img_title">성경학교 찬양</h1>
+        <div class="img_list"></div>
+        <img class="img_background" src="./main_img.jpg" alt="background">
+    </div>
+    <script>
+        const list = [
+            { id: 1, src: "./01 내가 바로 교회예요!(유년초등부 주제곡).mp4", name: `01.&nbsp&nbsp내가 바로 교회예요!(유년초등부 주제곡)`},
+            { id: 2, src: "./02 주가 찾아오셨네.mp4", name: `02.&nbsp&nbsp주가 찾아오셨네`},
+            { id: 3, src: "./03 놀라운 사랑으로.mp4", name: `03.&nbsp&nbsp놀라운 사랑으로`},
+            { id: 4, src: "./04 주님 사랑해요.mp4", name: `04.&nbsp&nbsp주님 사랑해요`},
+            { id: 5, src: "./05 예수! Follow!.mp4", name: `05.&nbsp&nbsp예수! Follow!`},
+            { id: 6, src: "./06 드려요.mp4", name: `06.&nbsp&nbsp드려요`},
+            { id: 7, src: "./07 1과 챈트 데살로니가전서 2장 12절.mp4", name: `07.&nbsp&nbsp1과 챈트 데살로니가전서 2장 12절`},
+            { id: 8, src: "./08 2과 챈트 마태복음 16장 16절.mp4", name: `08.&nbsp&nbsp2과 챈트 마태복음 16장 16절`},
+            { id: 9, src: "./09 3과 챈트 로마서 8장 39절.mp4", name: `09.&nbsp&nbsp3과 챈트 로마서 8장 39절`}
+        ];
+        render()
+        function render() {
+            for(let i=0; i<list.length; i++) {
+                let aElement=document.createElement('a');
+                let brElement=document.createElement('br');
+                aElement.className='img_whole';
+                aElement.innerHTML=list[i].name;
+                aElement.href=`./worship-play-list.html?id=${list[i].id}`;
+                document.getElementsByClassName('img_list')[0].appendChild(aElement);
+                document.getElementsByClassName('img_list')[0].appendChild(brElement);
+            };
+        }
+    </script>
+</body>
+</html>

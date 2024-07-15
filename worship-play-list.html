@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>worship-list</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dongle&family=Gaegu&display=swap" rel="stylesheet">
+<style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+    .w3-bar-block .w3-bar-item {padding:20px}
+    div, a{
+        font-family: "Dongle", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+    #menu_title{
+        font-size: 40px;
+    }
+    .list-name{
+        font-size: 38px;
+    }
+</style>
+</head>
+<body>
+
+<!-- Sidebar (hidden by default) -->
+<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button" style="text-align: right;">X</a>
+</nav>
+
+<!-- Top menu -->
+<div class="w3-top">
+  <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+    <div class="w3-button w3-padding-16 w3-left" id="menu_title" onclick="w3_open()">동영상 목록 보기</div>
+  </div>
+</div>
+  
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+
+  <!-- First Photo Grid-->
+  <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+    <div style="padding: 20px 10px 0 10px; background-color: #000;">
+      <video muted autoplay controls style="width: 80%;" class="video_player" id="video_player1" src="./01 내가 바로 교회예요!(유년초등부 주제곡).mp4"></video>
+    </div>
+  </div>
+  
+</div>
+
+<script>
+    const list = [
+        { id: 1, src: "./01 내가 바로 교회예요!(유년초등부 주제곡).mp4", name: `01.&nbsp&nbsp내가 바로 교회예요!(유년초등부 주제곡)`},
+        { id: 2, src: "./02 주가 찾아오셨네.mp4", name: `02.&nbsp&nbsp주가 찾아오셨네`},
+        { id: 3, src: "./03 놀라운 사랑으로.mp4", name: `03.&nbsp&nbsp놀라운 사랑으로`},
+        { id: 4, src: "./04 주님 사랑해요.mp4", name: `04.&nbsp&nbsp주님 사랑해요`},
+        { id: 5, src: "./05 예수! Follow!.mp4", name: `05.&nbsp&nbsp예수! Follow!`},
+        { id: 6, src: "./06 드려요.mp4", name: `06.&nbsp&nbsp드려요`},
+        { id: 7, src: "./07 1과 챈트 데살로니가전서 2장 12절.mp4", name: `07.&nbsp&nbsp1과 챈트 데살로니가전서 2장 12절`},
+        { id: 8, src: "./08 2과 챈트 마태복음 16장 16절.mp4", name: `08.&nbsp&nbsp2과 챈트 마태복음 16장 16절`},
+        { id: 9, src: "./09 3과 챈트 로마서 8장 39절.mp4", name: `09.&nbsp&nbsp3과 챈트 로마서 8장 39절`}
+    ];
+    setPlayVideo();
+    let interV = '';
+    interV=setInterval(()=>{
+        const isEnded=document.getElementsByClassName('video_player')[0].ended;
+        const videoId=document.getElementsByClassName('video_player')[0].id.slice(-1);
+
+        if(isEnded && parseInt(videoId) < list.length+1) {
+            document.getElementsByClassName('video_player')[0].id=`video_player${parseInt(videoId)+1}`;
+            document.getElementsByClassName('video_player')[0].src=list[parseInt(videoId)].src;
+        }
+        if(isEnded && parseInt(videoId) == list.length+1) {
+            document.getElementsByClassName('video_player')[0].id=`video_player1`;
+            document.getElementsByClassName('video_player')[0].src=list[0].src;
+        }
+    },1000);
+
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+        
+        if(document.getElementById('1')) return;
+        this.addPlayList();
+        
+        interV=setInterval(()=>{
+            const isEnded=document.getElementsByClassName('video_player')[0].ended;
+            const videoId=document.getElementsByClassName('video_player')[0].id.slice(-1);
+            
+            if(isEnded && parseInt(videoId) < list.length+1) {
+                document.getElementsByClassName('video_player')[0].id=`video_player${parseInt(videoId)+1}`;
+                document.getElementsByClassName('video_player')[0].src=list[parseInt(videoId)].src;
+            }
+            if(isEnded && parseInt(videoId) == list.length+1) {
+                document.getElementsByClassName('video_player')[0].id=`video_player1`;
+                document.getElementsByClassName('video_player')[0].src=list[0].src;
+            }
+        },1000);
+    }
+
+    function addPlayList() {
+        list.forEach(element => {
+            let aTag=document.createElement('a');
+            aTag.href='javascript:void(0)';
+            aTag.className="w3-bar-item w3-button list-name";
+            aTag.innerHTML=element.name;
+            aTag.id=`${element.id}`
+            aTag.addEventListener('click', function() {
+                document.getElementById("mySidebar").style.display = "none";
+                document.getElementsByClassName("video_player")[0].src=element.src;
+                document.getElementsByClassName("video_player")[0].id=`video_player${element.id}`
+                return false;
+            })
+            document.getElementById('mySidebar').appendChild(aTag);
+        });
+    }
+    
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+    }
+    function setPlayVideo() {
+        const id=parseInt(window.location.href.split('?id=')[1])-1;
+        document.getElementsByClassName("video_player")[0].id=`video_player${list[id].id}`;
+        document.getElementsByClassName("video_player")[0].src=list[id].src;   
+    }
+</script>
+
+</body>
+</html>
